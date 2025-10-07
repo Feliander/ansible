@@ -1,3 +1,7 @@
+## Ping
+
+    ansible all -m ping
+
 ## Install any software
 
     ansible-playbook -i hosts.yml playbooks/install_software.yml -e "packages=['nginx','git']"

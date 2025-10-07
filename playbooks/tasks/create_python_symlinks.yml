@@ -1,0 +1,15 @@
+- name: Get full version directory for {{ item.version }}
+  ansible.builtin.command: "pyenv prefix {{ item.version }}"
+  register: pyenv_prefix
+  changed_when: false
+
+- name: Create symlinks for python{{ item.version }} and pip{{ item.version }}
+  ansible.builtin.file:
+    src: "{{ pyenv_prefix.stdout }}/bin/{{ binary }}"
+    dest: "/usr/bin/{{ binary }}"
+    state: link
+  loop:
+    - "python{{ item.version }}"
+    - "pip{{ item.version }}"
+  loop_control:
+    loop_var: binary
