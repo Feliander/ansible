@@ -1,0 +1,8 @@
+- name: Install software on Debian servers
+  hosts: all
+  tasks:
+    - name: Ensure packages are installed
+      apt:
+        name: "{{ packages }}"
+        state: present
+        update_cache: yes

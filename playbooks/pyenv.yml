@@ -1,0 +1,8 @@
+- hosts: all
+  vars:
+    pyenv_python_versions:
+      - version: 3.12
+        global: yes
+    pyenv_dir: ~/.pyenv
+  roles:
+    - agoloncser.pyenv
