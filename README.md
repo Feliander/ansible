@@ -10,4 +10,4 @@
 
 Depends on `agoloncser.pyenv` role
 
-    ansible-playbook -i hosts.yml playbooks/pyenv.yml
+    ansible-playbook -i hosts.yml playbooks/pyenv.yml -e "version=3.12 global=true"
