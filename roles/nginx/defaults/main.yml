@@ -1,0 +1,27 @@
+nginx_user: root
+nginx_worker_processes: "auto"
+nginx_worker_connections: 100
+nginx_keepalive_timeout: 65
+
+nginx_sites: []
+# nginx_sites:
+#   - name: my_app
+#     config: |
+#       server {
+#         listen 80;
+#         location / {
+#           proxy_pass http://backend;
+#         }
+#       }
+
+nginx_upstreams: []
+# nginx_upstreams:
+#   - name: backend
+#     servers:
+#       - "backend1:8080"
+#       - "backend2:8080"
+#     method: "least_conn"
+
+
+nginx_remove_default_site: true
+nginx_template: "nginx.conf.j2"

@@ -1,0 +1,10 @@
+# Managed by Ansible - do not edit manually
+upstream {{ item.name }} {
+    {% for server in item.servers %}
+    server {{ server }};
+    {% endfor %}
+    
+    {% if item.method %}
+    {{ item.method }};
+    {% endif %}
+}

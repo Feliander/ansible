@@ -1,0 +1,28 @@
+---
+- hosts: nginx
+  become: true
+  roles:
+    - role: ../roles/nginx
+      vars:
+        nginx_upstreams:
+          - name: backend
+            servers:
+              - "{{ hostvars['backend'].ansible_host }}:{{ hostvars['backend'].backend_port }}"
+            method: "least_conn"
+        
+        nginx_sites:
+          - name: backend
+            config: |
+              server {
+                listen 80;
+                
+                location /backend/ {
+                  rewrite ^/backend/(.*)$ /$1 break;
+                  proxy_pass http://backend;
+                  proxy_set_header Host $host;
+                  proxy_set_header X-Real-IP $remote_addr;
+                  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                  proxy_set_header X-Forwarded-Proto $scheme;
+                }
+              
+              }
