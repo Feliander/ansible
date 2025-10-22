@@ -1,4 +1,5 @@
 - hosts: all
+  become: true
   vars:
     pyenv_python_versions:
       - version: "{{ version | default('3.12') }}"
@@ -7,13 +8,11 @@
   roles:
     - agoloncser.pyenv
   tasks:
-
   - name: Create symlink to pyenv
     ansible.builtin.file:
       src: "{{ ansible_env.HOME }}/.pyenv/libexec/pyenv"
       dest: /usr/bin/pyenv
       state: link
-
   - name: Create symlinks for pyenv, python and pip
     include_tasks: tasks/create_python_symlinks.yml
     loop: "{{ pyenv_python_versions }}"
